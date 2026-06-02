@@ -1,0 +1,332 @@
+$ tsup --watch
+[34mCLI[39m Building entry: {"index":"src/accessibility.ts"}
+[34mCLI[39m Using tsconfig: tsconfig.json
+[34mCLI[39m tsup v8.5.1
+[34mCLI[39m Using tsup config: C:\projetos\sistema-eventos-turborepo\packages\accessibility-widget\tsup.config.ts
+[34mCLI[39m Running in watch mode
+[34mCLI[39m Target: es2018
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mCJS[39m [1mdist\index.js     [22m[32m87.38 KB[39m
+[32mCJS[39m [1mdist\index.js.map [22m[32m141.33 KB[39m
+[32mCJS[39m ⚡️ Build success in 327ms
+[32mESM[39m [1mdist\index.mjs     [22m[32m86.29 KB[39m
+[32mESM[39m [1mdist\index.mjs.map [22m[32m141.24 KB[39m
+[32mESM[39m ⚡️ Build success in 327ms
+[34mCLI[39m Watching for changes in "."
+[34mCLI[39m Ignoring changes in "**/{.git,node_modules}/**" | "dist"
+[34mDTS[39m Build start
+[32mDTS[39m ⚡️ Build success in 3448ms
+[34mCLI[39m Change detected: change src/interfaces/accessibility.interface.ts
+[34mDTS[39m Build start
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mCJS[39m [1mdist\index.js     [22m[32m87.38 KB[39m
+[32mCJS[39m [1mdist\index.js.map [22m[32m141.36 KB[39m
+[32mCJS[39m ⚡️ Build success in 215ms
+[32mESM[39m [1mdist\index.mjs     [22m[32m86.29 KB[39m
+[32mESM[39m [1mdist\index.mjs.map [22m[32m141.26 KB[39m
+[32mESM[39m ⚡️ Build success in 273ms
+[32mDTS[39m ⚡️ Build success in 2458ms
+[34mCLI[39m Change detected: change src/main.ts
+[34mDTS[39m Build start
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mCJS[39m [1mdist\index.js     [22m[32m87.40 KB[39m
+[32mCJS[39m [1mdist\index.js.map [22m[32m141.39 KB[39m
+[32mCJS[39m ⚡️ Build success in 108ms
+[32mESM[39m [1mdist\index.mjs     [22m[32m86.31 KB[39m
+[32mESM[39m [1mdist\index.mjs.map [22m[32m141.29 KB[39m
+[32mESM[39m ⚡️ Build success in 138ms
+[32mDTS[39m ⚡️ Build success in 2240ms
+[34mCLI[39m Change detected: change src/main.ts
+[34mDTS[39m Build start
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mCJS[39m [1mdist\index.js     [22m[32m87.51 KB[39m
+[32mCJS[39m [1mdist\index.js.map [22m[32m141.50 KB[39m
+[32mCJS[39m ⚡️ Build success in 412ms
+[32mESM[39m [1mdist\index.mjs     [22m[32m86.41 KB[39m
+[32mESM[39m [1mdist\index.mjs.map [22m[32m141.41 KB[39m
+[32mESM[39m ⚡️ Build success in 489ms
+[32mDTS[39m ⚡️ Build success in 2368ms
+[34mCLI[39m Change detected: change src/main.ts
+[34mDTS[39m Build start
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mCJS[39m [1mdist\index.js     [22m[32m87.67 KB[39m
+[32mCJS[39m [1mdist\index.js.map [22m[32m141.81 KB[39m
+[32mCJS[39m ⚡️ Build success in 141ms
+[32mESM[39m [1mdist\index.mjs     [22m[32m86.57 KB[39m
+[32mESM[39m [1mdist\index.mjs.map [22m[32m141.71 KB[39m
+[32mESM[39m ⚡️ Build success in 155ms
+[32mDTS[39m ⚡️ Build success in 1694ms
+[34mCLI[39m Change detected: change src/main.ts
+[34mDTS[39m Build start
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mCJS[39m [1mdist\index.js     [22m[32m87.72 KB[39m
+[32mCJS[39m [1mdist\index.js.map [22m[32m141.92 KB[39m
+[32mCJS[39m ⚡️ Build success in 482ms
+[32mESM[39m [1mdist\index.mjs     [22m[32m86.63 KB[39m
+[32mESM[39m [1mdist\index.mjs.map [22m[32m141.82 KB[39m
+[32mESM[39m ⚡️ Build success in 489ms
+[32mDTS[39m ⚡️ Build success in 2275ms
+[34mCLI[39m Change detected: change src/main.ts
+[34mDTS[39m Build start
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mESM[39m [1mdist\index.mjs     [22m[32m86.63 KB[39m
+[32mESM[39m [1mdist\index.mjs.map [22m[32m141.82 KB[39m
+[32mESM[39m ⚡️ Build success in 91ms
+[32mCJS[39m [1mdist\index.js     [22m[32m87.72 KB[39m
+[32mCJS[39m [1mdist\index.js.map [22m[32m141.91 KB[39m
+[32mCJS[39m ⚡️ Build success in 93ms
+[32mDTS[39m ⚡️ Build success in 2206ms
+[34mCLI[39m Change detected: change src/main.ts
+[34mDTS[39m Build start
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mCJS[39m [1mdist\index.js     [22m[32m87.72 KB[39m
+[32mCJS[39m [1mdist\index.js.map [22m[32m141.91 KB[39m
+[32mCJS[39m ⚡️ Build success in 79ms
+[32mESM[39m [1mdist\index.mjs     [22m[32m86.63 KB[39m
+[32mESM[39m [1mdist\index.mjs.map [22m[32m141.82 KB[39m
+[32mESM[39m ⚡️ Build success in 80ms
+[32mDTS[39m ⚡️ Build success in 2174ms
+[34mCLI[39m Change detected: change src/main.ts
+[34mDTS[39m Build start
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mCJS[39m [1mdist\index.js     [22m[32m87.72 KB[39m
+[32mCJS[39m [1mdist\index.js.map [22m[32m141.91 KB[39m
+[32mCJS[39m ⚡️ Build success in 116ms
+[32mESM[39m [1mdist\index.mjs     [22m[32m86.63 KB[39m
+[32mESM[39m [1mdist\index.mjs.map [22m[32m141.82 KB[39m
+[32mESM[39m ⚡️ Build success in 132ms
+[32mDTS[39m ⚡️ Build success in 1886ms
+[34mCLI[39m Change detected: change src/menu-interface.ts
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mESM[39m [1mdist\index.mjs     [22m[32m86.61 KB[39m
+[32mESM[39m [1mdist\index.mjs.map [22m[32m141.82 KB[39m
+[32mESM[39m ⚡️ Build success in 221ms
+[32mCJS[39m [1mdist\index.js     [22m[32m87.71 KB[39m
+[32mCJS[39m [1mdist\index.js.map [22m[32m141.92 KB[39m
+[32mCJS[39m ⚡️ Build success in 221ms
+[34mCLI[39m Change detected: change src/main.ts
+[34mDTS[39m Build start
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mESM[39m [1mdist\index.mjs     [22m[32m86.61 KB[39m
+[32mESM[39m [1mdist\index.mjs.map [22m[32m141.82 KB[39m
+[32mESM[39m ⚡️ Build success in 119ms
+[32mCJS[39m [1mdist\index.js     [22m[32m87.71 KB[39m
+[32mCJS[39m [1mdist\index.js.map [22m[32m141.92 KB[39m
+[32mCJS[39m ⚡️ Build success in 121ms
+[32mDTS[39m ⚡️ Build success in 1604ms
+[34mCLI[39m Change detected: change src/main.ts
+[34mDTS[39m Build start
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mCJS[39m [1mdist\index.js     [22m[32m87.71 KB[39m
+[32mCJS[39m [1mdist\index.js.map [22m[32m141.92 KB[39m
+[32mCJS[39m ⚡️ Build success in 71ms
+[32mESM[39m [1mdist\index.mjs     [22m[32m86.62 KB[39m
+[32mESM[39m [1mdist\index.mjs.map [22m[32m141.82 KB[39m
+[32mESM[39m ⚡️ Build success in 79ms
+[32mDTS[39m ⚡️ Build success in 1355ms
+[34mCLI[39m Change detected: change src/main.ts
+[34mDTS[39m Build start
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mCJS[39m [1mdist\index.js     [22m[32m87.71 KB[39m
+[32mCJS[39m [1mdist\index.js.map [22m[32m141.92 KB[39m
+[32mCJS[39m ⚡️ Build success in 106ms
+[32mESM[39m [1mdist\index.mjs     [22m[32m86.62 KB[39m
+[32mESM[39m [1mdist\index.mjs.map [22m[32m141.82 KB[39m
+[32mESM[39m ⚡️ Build success in 122ms
+[32mDTS[39m ⚡️ Build success in 1399ms
+[34mCLI[39m Change detected: change src/main.ts
+[34mDTS[39m Build start
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mESM[39m [1mdist\index.mjs     [22m[32m86.62 KB[39m
+[32mESM[39m [1mdist\index.mjs.map [22m[32m141.82 KB[39m
+[32mESM[39m ⚡️ Build success in 98ms
+[32mCJS[39m [1mdist\index.js     [22m[32m87.71 KB[39m
+[32mCJS[39m [1mdist\index.js.map [22m[32m141.92 KB[39m
+[32mCJS[39m ⚡️ Build success in 105ms
+[32mDTS[39m ⚡️ Build success in 1429ms
+[34mCLI[39m Change detected: change src/main.ts
+[34mDTS[39m Build start
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mCJS[39m [1mdist\index.js     [22m[32m87.71 KB[39m
+[32mCJS[39m [1mdist\index.js.map [22m[32m141.92 KB[39m
+[32mCJS[39m ⚡️ Build success in 300ms
+[32mESM[39m [1mdist\index.mjs     [22m[32m86.62 KB[39m
+[32mESM[39m [1mdist\index.mjs.map [22m[32m141.82 KB[39m
+[32mESM[39m ⚡️ Build success in 304ms
+[32mDTS[39m ⚡️ Build success in 2316ms
+[34mCLI[39m Change detected: change src/main.ts
+[34mDTS[39m Build start
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mESM[39m [1mdist\index.mjs     [22m[32m86.61 KB[39m
+[32mESM[39m [1mdist\index.mjs.map [22m[32m141.82 KB[39m
+[32mESM[39m ⚡️ Build success in 112ms
+[32mCJS[39m [1mdist\index.js     [22m[32m87.71 KB[39m
+[32mCJS[39m [1mdist\index.js.map [22m[32m141.92 KB[39m
+[32mCJS[39m ⚡️ Build success in 120ms
+[32mDTS[39m ⚡️ Build success in 2139ms
+[34mCLI[39m Change detected: change src/main.ts
+[34mDTS[39m Build start
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mESM[39m [1mdist\index.mjs     [22m[32m86.58 KB[39m
+[32mESM[39m [1mdist\index.mjs.map [22m[32m141.79 KB[39m
+[32mESM[39m ⚡️ Build success in 269ms
+[32mCJS[39m [1mdist\index.js     [22m[32m87.68 KB[39m
+[32mCJS[39m [1mdist\index.js.map [22m[32m141.89 KB[39m
+[32mCJS[39m ⚡️ Build success in 290ms
+[32mDTS[39m ⚡️ Build success in 1533ms
+[34mCLI[39m Change detected: change src/main.ts
+[34mDTS[39m Build start
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mESM[39m [1mdist\index.mjs     [22m[32m86.58 KB[39m
+[32mESM[39m [1mdist\index.mjs.map [22m[32m141.78 KB[39m
+[32mESM[39m ⚡️ Build success in 189ms
+[32mCJS[39m [1mdist\index.js     [22m[32m87.67 KB[39m
+[32mCJS[39m [1mdist\index.js.map [22m[32m141.88 KB[39m
+[32mCJS[39m ⚡️ Build success in 190ms
+[32mDTS[39m ⚡️ Build success in 1458ms
+[34mCLI[39m Change detected: change src/main.ts
+[34mDTS[39m Build start
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mCJS[39m [1mdist\index.js     [22m[32m87.72 KB[39m
+[32mCJS[39m [1mdist\index.js.map [22m[32m141.95 KB[39m
+[32mCJS[39m ⚡️ Build success in 120ms
+[32mESM[39m [1mdist\index.mjs     [22m[32m86.63 KB[39m
+[32mESM[39m [1mdist\index.mjs.map [22m[32m141.85 KB[39m
+[32mESM[39m ⚡️ Build success in 120ms
+[32mDTS[39m ⚡️ Build success in 2216ms
+[34mCLI[39m Change detected: change src/main.ts
+[34mDTS[39m Build start
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mCJS[39m [1mdist\index.js     [22m[32m87.73 KB[39m
+[32mCJS[39m [1mdist\index.js.map [22m[32m141.95 KB[39m
+[32mCJS[39m ⚡️ Build success in 88ms
+[32mESM[39m [1mdist\index.mjs     [22m[32m86.63 KB[39m
+[32mESM[39m [1mdist\index.mjs.map [22m[32m141.86 KB[39m
+[32mESM[39m ⚡️ Build success in 88ms
+[32mDTS[39m ⚡️ Build success in 2108ms
+[34mCLI[39m Change detected: change src/main.ts
+[34mDTS[39m Build start
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mESM[39m [1mdist\index.mjs     [22m[32m86.63 KB[39m
+[32mESM[39m [1mdist\index.mjs.map [22m[32m141.86 KB[39m
+[32mESM[39m ⚡️ Build success in 167ms
+[32mCJS[39m [1mdist\index.js     [22m[32m87.73 KB[39m
+[32mCJS[39m [1mdist\index.js.map [22m[32m141.96 KB[39m
+[32mCJS[39m ⚡️ Build success in 314ms
+[32mDTS[39m ⚡️ Build success in 2055ms
+[34mCLI[39m Change detected: change src/main.ts
+[34mDTS[39m Build start
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mCJS[39m [1mdist\index.js     [22m[32m87.73 KB[39m
+[32mCJS[39m [1mdist\index.js.map [22m[32m141.96 KB[39m
+[32mCJS[39m ⚡️ Build success in 107ms
+[32mESM[39m [1mdist\index.mjs     [22m[32m86.63 KB[39m
+[32mESM[39m [1mdist\index.mjs.map [22m[32m141.86 KB[39m
+[32mESM[39m ⚡️ Build success in 108ms
+[32mDTS[39m ⚡️ Build success in 1523ms
+[34mCLI[39m Change detected: change src/main.ts
+[34mDTS[39m Build start
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mCJS[39m [1mdist\index.js     [22m[32m87.73 KB[39m
+[32mCJS[39m [1mdist\index.js.map [22m[32m141.96 KB[39m
+[32mCJS[39m ⚡️ Build success in 83ms
+[32mESM[39m [1mdist\index.mjs     [22m[32m86.64 KB[39m
+[32mESM[39m [1mdist\index.mjs.map [22m[32m141.86 KB[39m
+[32mESM[39m ⚡️ Build success in 84ms
+[32mDTS[39m ⚡️ Build success in 1518ms
+[34mCLI[39m Change detected: change src/main.ts
+[34mDTS[39m Build start
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mESM[39m [1mdist\index.mjs     [22m[32m86.64 KB[39m
+[32mESM[39m [1mdist\index.mjs.map [22m[32m141.86 KB[39m
+[32mESM[39m ⚡️ Build success in 84ms
+[32mCJS[39m [1mdist\index.js     [22m[32m87.73 KB[39m
+[32mCJS[39m [1mdist\index.js.map [22m[32m141.96 KB[39m
+[32mCJS[39m ⚡️ Build success in 93ms
+[32mDTS[39m ⚡️ Build success in 2040ms
+[34mCLI[39m Change detected: change src/main.ts
+[34mDTS[39m Build start
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mCJS[39m [1mdist\index.js     [22m[32m87.74 KB[39m
+[32mCJS[39m [1mdist\index.js.map [22m[32m141.97 KB[39m
+[32mCJS[39m ⚡️ Build success in 111ms
+[32mESM[39m [1mdist\index.mjs     [22m[32m86.65 KB[39m
+[32mESM[39m [1mdist\index.mjs.map [22m[32m141.87 KB[39m
+[32mESM[39m ⚡️ Build success in 129ms
+[32mDTS[39m ⚡️ Build success in 2096ms
+[34mCLI[39m Change detected: change src/main.ts
+[34mDTS[39m Build start
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mESM[39m [1mdist\index.mjs     [22m[32m86.65 KB[39m
+[32mESM[39m [1mdist\index.mjs.map [22m[32m141.87 KB[39m
+[32mESM[39m ⚡️ Build success in 162ms
+[32mCJS[39m [1mdist\index.js     [22m[32m87.74 KB[39m
+[32mCJS[39m [1mdist\index.js.map [22m[32m141.97 KB[39m
+[32mCJS[39m ⚡️ Build success in 170ms
+[32mDTS[39m ⚡️ Build success in 2137ms
+[34mCLI[39m Change detected: change src/main.ts
+[34mDTS[39m Build start
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mESM[39m [1mdist\index.mjs     [22m[32m86.65 KB[39m
+[32mESM[39m [1mdist\index.mjs.map [22m[32m141.87 KB[39m
+[32mESM[39m ⚡️ Build success in 121ms
+[32mCJS[39m [1mdist\index.js     [22m[32m87.74 KB[39m
+[32mCJS[39m [1mdist\index.js.map [22m[32m141.97 KB[39m
+[32mCJS[39m ⚡️ Build success in 153ms
+[32mDTS[39m ⚡️ Build success in 2041ms
+[34mCLI[39m Change detected: change src/main.ts
+[34mDTS[39m Build start

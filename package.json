@@ -1,0 +1,40 @@
+{
+  "name": "ufc-itapaje-accessibility",
+  "version": "1.0.0",
+  "description": "Widget de acessibilidade customizável com suporte a temas, fonte para dislexia, ocultar imagens e módulos extras.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "unpkg": "dist/index.global.js",
+  "jsdelivr": "dist/index.global.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.0"
+  },
+  "peerDependencies": {
+    "regenerator-runtime": "^0.14.1"
+  },
+  "peerDependenciesMeta": {
+    "regenerator-runtime": { "optional": true }
+  },
+  "keywords": ["accessibility", "a11y", "widget", "wcag", "ufc", "dyslexia", "screen-reader"],
+  "author": "João Bruno Sousa",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JBrunoS/ufc-itapaje-accessibility"
+  }
+}
