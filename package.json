@@ -1,6 +1,6 @@
 {
   "name": "ufc-itapaje-accessibility",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Widget de acessibilidade customizável com suporte a temas, fonte para dislexia, ocultar imagens e módulos extras.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
