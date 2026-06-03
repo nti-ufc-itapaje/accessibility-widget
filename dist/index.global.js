@@ -1094,11 +1094,12 @@ var Accessibility = (() => {
           font-size: var(--_access-menu-header-font-size, 22px);
           font-weight: var(--_access-menu-header-font-weight, bold);
           margin: var(--_access-menu-header-margin, 0px 0 -15px);
-          padding: 40px 30px;
+          padding: 40px 30px !important;
           color: var(--_access-menu-header-color, #FFFFFF);
           text-align: var(--_access-menu-header-text-align, left);
           background: #0048FF;
           width: 100%;
+          box-sizing: border-box !important;
           display: flex;
           flex-direction: row-reverse;
           align-items: center;
