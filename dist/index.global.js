@@ -1726,6 +1726,13 @@ var Accessibility = (() => {
           box-shadow: 4px 2px 1px rgba(0, 0, 0, 0.1);
           border-radius: var(--_access-menu-item-button-border-radius, 8px);
           cursor: pointer;
+          text-decoration: none !important;
+          border: none !important;
+          outline: none;
+          box-sizing: border-box;
+          font-family: inherit;
+          -webkit-appearance: none;
+          appearance: none;
         }
         ._access-menu ul li.position { display: inline-block; width: auto; }
         ._access-menu ul.before-collapse li button { opacity: var(--_access-menu-item-button-before-collapse-opacity, 0.05); }
