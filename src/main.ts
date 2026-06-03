@@ -393,6 +393,16 @@ export class Accessibility implements IAccessibility {
             cursor: pointer;
             font-style: normal !important;
             display: flex; align-items: center; justify-content: center; gap: 6px;
+            border: none !important;
+            outline: none;
+            box-sizing: border-box !important;
+            font-size: 16px !important;
+            line-height: 1.2 !important;
+            text-decoration: none !important;
+            -webkit-appearance: none;
+            appearance: none;
+            min-height: unset !important;
+            max-height: unset !important;
           }
         ._access-menu ._menu-close-btn:hover { scale: 1.05; }
         ._access-menu ._menu-reset-btn:hover { scale: 1.03; }
@@ -444,6 +454,8 @@ export class Accessibility implements IAccessibility {
           font-family: inherit;
           -webkit-appearance: none;
           appearance: none;
+          position: relative !important;
+          padding-bottom: 20px !important;
         }
         ._access-menu ul li.position { display: inline-block; width: auto; }
         ._access-menu ul.before-collapse li button { opacity: var(--_access-menu-item-button-before-collapse-opacity, 0.05); }
@@ -510,9 +522,9 @@ export class Accessibility implements IAccessibility {
             margin: 8px auto 4px;
             object-fit: contain;
           }
-        ._access-cycle-indicator { position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); display: flex; gap: 4px; }
-        ._access-cycle-indicator span { width: 16px; height: 3px; border-radius: 2px; background: #ccc; transition: background 0.2s; }
-        ._access-cycle-indicator span.filled { background: #0048FF; }
+        ._access-cycle-indicator { position: absolute !important; bottom: 6px !important; left: 50% !important; transform: translateX(-50%) !important; display: flex !important; gap: 4px !important; }
+        ._access-cycle-indicator span { width: 16px !important; height: 3px !important; border-radius: 2px !important; background: #ccc !important; transition: background 0.2s !important; text-decoration: none !important; }
+        ._access-cycle-indicator span.filled { background: #0048FF !important; }
       `;
     }
 
