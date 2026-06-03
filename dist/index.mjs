@@ -895,7 +895,7 @@ var _Accessibility = class _Accessibility {
       statement: { url: "" },
       feedback: { url: "" },
       linkSelector: "a",
-      logoImage: "",
+      logoImage: "https://cdn.jsdelivr.net/npm/ufc-itapaje-accessibility/dist/logo-ufc.png",
       language: { textToSpeechLang: "", speechToTextLang: "" }
     };
     Object.keys(AccessibilityModulesType).filter((k) => !isNaN(parseInt(k))).forEach((k) => {
