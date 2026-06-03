@@ -1,5 +1,4 @@
 'use strict';
-import 'regenerator-runtime/runtime.js';
 import { Common } from './common';
 import {
   AccessibilityModulesType,

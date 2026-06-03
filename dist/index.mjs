@@ -1,6 +1,3 @@
-// src/main.ts
-import "regenerator-runtime/runtime.js";
-
 // src/common.ts
 var _Common = class _Common {
   constructor() {

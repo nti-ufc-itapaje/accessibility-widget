@@ -26,14 +26,6 @@
     "tsup": "^8.4.0",
     "typescript": "^5.8.0"
   },
-  "peerDependencies": {
-    "regenerator-runtime": "^0.14.1"
-  },
-  "peerDependenciesMeta": {
-    "regenerator-runtime": {
-      "optional": true
-    }
-  },
   "keywords": [
     "accessibility",
     "a11y",

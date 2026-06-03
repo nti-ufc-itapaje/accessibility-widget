@@ -32,9 +32,6 @@ __export(accessibility_exports, {
 });
 module.exports = __toCommonJS(accessibility_exports);
 
-// src/main.ts
-var import_runtime = require("regenerator-runtime/runtime.js");
-
 // src/common.ts
 var _Common = class _Common {
   constructor() {
