@@ -1156,8 +1156,9 @@ var _Accessibility = class _Accessibility {
         ._access-menu ._menu-reset-btn {
             position: relative;
             width: 90%;
-            height: 52px !important;
-            padding: 0 15px !important;
+            min-height: 52px !important;
+            height: auto !important;
+            padding: 12px 15px !important;
             margin: 10px auto !important;
             background: #0048FF;
             color: #FFFFFF;
@@ -1177,6 +1178,15 @@ var _Accessibility = class _Accessibility {
             text-decoration: none !important;
             -webkit-appearance: none;
             appearance: none;
+          }
+        ._access-menu ._menu-reset-btn span {
+            display: inline-flex !important;
+            align-items: center !important;
+            width: auto !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            line-height: 1 !important;
+            font-size: 16px !important;
           }
         ._access-menu ._menu-close-btn:hover { scale: 1.05; }
         ._access-menu ._menu-reset-btn:hover { scale: 1.03; }
