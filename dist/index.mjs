@@ -986,6 +986,17 @@ var _Accessibility = class _Accessibility {
     let css = mandatory;
     if (injectFull) {
       css = `
+        ._access-menu, ._access-menu * {
+          box-sizing: border-box !important;
+          font-size: revert !important;
+        }
+        ._access-menu {
+          font-size: 16px !important;
+        }
+        ._access-menu button, ._access-menu ul, ._access-menu li, ._access-menu div {
+          border: none !important;
+          outline: none !important;
+        }
         ._access-scrollbar::-webkit-scrollbar-track { -webkit-box-shadow: var(--_access-scrollbar-track-box-shadow, inset 0 0 6px rgba(0,0,0,0.3)); background-color: var(--_access-scrollbar-track-background-color, #F5F5F5); }
         ._access-scrollbar::-webkit-scrollbar { width: var(--_access-scrollbar-width, 6px); background-color: var(--_access-scrollbar-background-color, #F5F5F5); }
         ._access-scrollbar::-webkit-scrollbar-thumb { background-color: var(--_access-scrollbar-thumb-background-color, #999999); }
@@ -1569,8 +1580,11 @@ var _Accessibility = class _Accessibility {
       }
     } else if (this.options.textEmlMode) {
       const fp = this._html.style.fontSize;
-      if (fp.includes("%")) this._html.style.fontSize = parseInt(fp) + factor + "%";
-      else this._common.warn("textEmlMode: html element font-size is not in %.");
+      if (fp.includes("%")) {
+        this._html.style.fontSize = parseInt(fp) + factor + "%";
+        const menuEl = this._menu;
+        if (menuEl) menuEl.style.fontSize = "16px";
+      } else this._common.warn("textEmlMode: html element font-size is not in %.");
     } else {
       const fSize = this._common.getFormattedDim(getComputedStyle(this._body).fontSize);
       if (typeof this._stateValues.body.fontSize === "undefined")
