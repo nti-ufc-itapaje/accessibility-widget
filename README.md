@@ -165,4 +165,4 @@ Consulte o [README do plugin](./wordpress-plugin/ufc-itapaje-accessibility/READM
 
 ## Licença
 
-MIT — [João Bruno Sousa](https://github.com/JBrunoS)
+GPL-3.0 — [NTI UFC Itapajé](https://github.com/nti-ufc-itapaje/accessibility-widget)
