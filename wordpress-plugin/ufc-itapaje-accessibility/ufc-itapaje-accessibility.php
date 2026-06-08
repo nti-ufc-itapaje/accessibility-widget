@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: UFC Itapajé Accessibility
- * Plugin URI:  https://github.com/JBrunoS/ufc-itapaje-accessibility
+ * Plugin URI:  https://github.com/nti-ufc-itapaje/accessibility-widget
  * Description: Widget de acessibilidade customizável com suporte a temas, fonte para dislexia, ocultar imagens e mais.
  * Version:     1.0.0
  * Author:      João Bruno Sousa
- * License:     MIT
+ * License:     GPL-3.0
  * Text Domain: ufc-itapaje-accessibility
  */
 

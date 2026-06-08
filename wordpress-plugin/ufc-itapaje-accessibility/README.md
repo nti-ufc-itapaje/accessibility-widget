@@ -109,4 +109,4 @@ Todas as configurações salvas no banco de dados serão removidas automaticamen
 
 ## Licença
 
-MIT — João Bruno Sousa
+GPL-3.0 — [NTI UFC Itapajé](https://github.com/nti-ufc-itapaje)
