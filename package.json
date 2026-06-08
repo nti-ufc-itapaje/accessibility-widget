@@ -36,9 +36,9 @@
     "screen-reader"
   ],
   "author": "João Bruno Sousa",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/JBrunoS/ufc-itapaje-accessibility"
+    "url": "https://github.com/nti-ufc-itapaje/accessibility-widget"
   }
 }
