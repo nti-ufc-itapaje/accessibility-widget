@@ -1029,8 +1029,8 @@ var _Accessibility = class _Accessibility {
         ._access-menu button {
           border: none !important;
           outline: none !important;
-          padding: unset;
           font-size: inherit !important;
+          line-height: 1.2 !important;
         }
         ._access-menu ul, ._access-menu li {
           border: none !important;
@@ -1156,7 +1156,8 @@ var _Accessibility = class _Accessibility {
         ._access-menu ._menu-reset-btn {
             position: relative;
             width: 90%;
-            padding: 15px !important;
+            height: 52px !important;
+            padding: 0 15px !important;
             margin: 10px auto !important;
             background: #0048FF;
             color: #FFFFFF;
@@ -1164,17 +1165,18 @@ var _Accessibility = class _Accessibility {
             box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
             cursor: pointer;
             font-style: normal !important;
-            display: flex; align-items: center; justify-content: center; gap: 6px;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 6px;
             border: none !important;
             outline: none;
             box-sizing: border-box !important;
             font-size: 16px !important;
-            line-height: 1.2 !important;
+            line-height: 1 !important;
             text-decoration: none !important;
             -webkit-appearance: none;
             appearance: none;
-            min-height: unset !important;
-            max-height: unset !important;
           }
         ._access-menu ._menu-close-btn:hover { scale: 1.05; }
         ._access-menu ._menu-reset-btn:hover { scale: 1.03; }
