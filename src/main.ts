@@ -266,12 +266,17 @@ export class Accessibility implements IAccessibility {
       css = `
         ._access-menu, ._access-menu * {
           box-sizing: border-box !important;
-          font-size: revert !important;
         }
         ._access-menu {
           font-size: 16px !important;
         }
-        ._access-menu button, ._access-menu ul, ._access-menu li, ._access-menu div {
+        ._access-menu button {
+          border: none !important;
+          outline: none !important;
+          padding: unset;
+          font-size: inherit !important;
+        }
+        ._access-menu ul, ._access-menu li {
           border: none !important;
           outline: none !important;
         }
@@ -395,8 +400,8 @@ export class Accessibility implements IAccessibility {
         ._access-menu ._menu-reset-btn {
             position: relative;
             width: 90%;
-            padding: 15px;
-            margin: 10px auto;
+            padding: 15px !important;
+            margin: 10px auto !important;
             background: #0048FF;
             color: #FFFFFF;
             border-radius: 10px;
