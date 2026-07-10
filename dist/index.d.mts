@@ -61,25 +61,22 @@ declare class Common implements ICommon {
 }
 
 interface IMenuInterface {
-    increaseText(): void;
-    decreaseText(): void;
-    increaseTextSpacing(): void;
-    decreaseTextSpacing(): void;
+    increaseText(destroy?: boolean, btn?: HTMLElement): void;
+    increaseTextSpacing(destroy?: boolean, btn?: HTMLElement): void;
     invertColors(destroy?: boolean): void;
     grayHues(destroy?: boolean): void;
     underlineLinks(destroy?: boolean): void;
     bigCursor(destroy?: boolean): void;
     readingGuide(destroy?: boolean): void;
     textToSpeech(destroy?: boolean): void;
-    speechToText(destroy?: boolean): void;
     disableAnimations(destroy?: boolean): void;
     iframeModals(destroy?: boolean, button?: HTMLElement): void;
     customFunctions(destroy?: boolean, button?: HTMLElement): void;
-    increaseLineHeight(): void;
-    decreaseLineHeight(): void;
+    increaseLineHeight(destroy?: boolean, btn?: HTMLElement): void;
     dyslexicFont(destroy?: boolean): void;
     hideImages(destroy?: boolean): void;
     refreshCycleButtons(): void;
+    hotkeysHelp(): void;
 }
 
 interface IAccessibility {
@@ -92,7 +89,6 @@ interface IAccessibility {
     readonly html: HTMLElement;
     readonly body: HTMLBodyElement;
     readonly menu: HTMLElement;
-    readonly recognition: any;
     readonly fixedDefaultFont: string;
     alterTextSize(isIncrease: boolean): void;
     alterTextSpace(isIncrease: boolean): void;
@@ -100,9 +96,7 @@ interface IAccessibility {
     resetTextSize(): void;
     resetTextSpace(): void;
     resetLineHeight(): void;
-    speechToText(): void;
     textToSpeech(text: string): void;
-    listen(): void;
     read(e?: Event): void;
     runHotkey(name: string): void;
     toggleMenu(): void;
@@ -121,7 +115,6 @@ interface IAccessibilityOptions {
     guide?: IAccessibilityGuideOptions;
     labels?: IAccessibilityMenuLabelsOptions;
     textToSpeechLang?: string;
-    speechToTextLang?: string;
     textPixelMode?: boolean;
     textEmlMode?: boolean;
     textSizeFactor?: number;
@@ -184,14 +177,18 @@ interface IAccessibilityHotkeysOptions {
 }
 interface IAccessibilityHotkeysKeysOptions {
     toggleMenu: Array<any>;
+    increaseText: Array<any>;
+    increaseTextSpacing: Array<any>;
+    increaseLineHeight: Array<any>;
     invertColors: Array<any>;
     grayHues: Array<any>;
     underlineLinks: Array<any>;
     bigCursor: Array<any>;
     readingGuide: Array<any>;
     textToSpeech: Array<any>;
-    speechToText: Array<any>;
     disableAnimations: Array<any>;
+    dyslexicFont: Array<any>;
+    hideImages: Array<any>;
 }
 interface IAccessibilityGuideOptions {
     cBorder: string;
@@ -207,37 +204,30 @@ interface IAccessibilityMenuLabelsOptions {
     closeTitle: string;
     menuTitle: string;
     increaseText: string;
-    decreaseText: string;
     increaseTextSpacing: string;
-    decreaseTextSpacing: string;
     invertColors: string;
     grayHues: string;
     bigCursor: string;
     readingGuide: string;
     underlineLinks: string;
     textToSpeech: string;
-    speechToText: string;
     disableAnimations: string;
     increaseLineHeight: string;
-    decreaseLineHeight: string;
     hotkeyPrefix: string;
+    hotkeysHelpTitle: string;
     dyslexicFont: string;
     hideImages: string;
 }
 interface IAccessibilityModulesOptions {
     increaseText?: boolean;
-    decreaseText?: boolean;
     increaseTextSpacing?: boolean;
-    decreaseTextSpacing?: boolean;
     increaseLineHeight?: boolean;
-    decreaseLineHeight?: boolean;
     invertColors?: boolean;
     grayHues?: boolean;
     bigCursor?: boolean;
     readingGuide?: boolean;
     underlineLinks?: boolean;
     textToSpeech?: boolean;
-    speechToText?: boolean;
     disableAnimations?: boolean;
     dyslexicFont?: boolean;
     hideImages?: boolean;
@@ -247,18 +237,14 @@ interface IAccessibilityAnimationsOptions {
 }
 declare enum AccessibilityModulesType {
     increaseText = 1,
-    decreaseText = 2,
     increaseTextSpacing = 3,
-    decreaseTextSpacing = 4,
     increaseLineHeight = 5,
-    decreaseLineHeight = 6,
     invertColors = 7,
     grayHues = 8,
     bigCursor = 9,
     readingGuide = 10,
     underlineLinks = 11,
     textToSpeech = 12,
-    speechToText = 13,
     disableAnimations = 14,
     iframeModals = 15,
     customFunctions = 16,
@@ -277,7 +263,6 @@ interface IAccessibilityUrlOptions {
 }
 interface IAccessibilityLanguageOptions {
     textToSpeechLang: string;
-    speechToTextLang: string;
 }
 interface ISessionState {
     textSize: number;
@@ -296,7 +281,6 @@ interface IStateValues {
     readingGuide?: boolean;
     invertColors?: boolean;
     grayHues?: boolean;
-    speechToText?: boolean;
     disableAnimations?: boolean;
     dyslexicFont?: boolean;
     hideImages?: boolean;
@@ -320,8 +304,6 @@ declare class Accessibility implements IAccessibility {
     private _menu;
     private _htmlOrgFontSize;
     private _stateValues;
-    private _recognition;
-    private _speechToTextTarget;
     private _onKeyDownBind;
     private _fixedDefaultFont;
     menuInterface: IMenuInterface;
@@ -335,7 +317,6 @@ declare class Accessibility implements IAccessibility {
     get sessionState(): ISessionState;
     set sessionState(value: ISessionState);
     get common(): Common;
-    get recognition(): any;
     get isReading(): boolean;
     set isReading(value: boolean);
     get fixedDefaultFont(): string;
@@ -362,10 +343,9 @@ declare class Accessibility implements IAccessibility {
     alterTextSize(isIncrease: boolean): void;
     alterLineHeight(isIncrease: boolean): void;
     alterTextSpace(isIncrease: boolean): void;
-    speechToText(): void;
+    pickVoice(voices: SpeechSynthesisVoice[], lang: string): SpeechSynthesisVoice | undefined;
     textToSpeech(text: string): void;
     createScreenShot(url: string): Promise<string>;
-    listen(): void;
     read(e: Event): void;
     runHotkey(name: string): void;
     toggleMenu(): void;

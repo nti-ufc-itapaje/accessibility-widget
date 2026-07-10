@@ -38,7 +38,6 @@ export class MenuInterface implements IMenuInterface {
     }
     if (btn) this.updateCycleButton(btn, this._acc.sessionState.textSize, 3);
   }
-  decreaseText() { this._acc.alterTextSize(false); }
   increaseTextSpacing(_destroy?: boolean, btn?: HTMLElement) {
     if (this._acc.sessionState.textSpace >= 3) {
       this._acc.resetTextSpace();
@@ -47,7 +46,6 @@ export class MenuInterface implements IMenuInterface {
     }
     if (btn) this.updateCycleButton(btn, this._acc.sessionState.textSpace, 3);
   }
-  decreaseTextSpacing() { this._acc.alterTextSpace(false); }
   increaseLineHeight(_destroy?: boolean, btn?: HTMLElement) {
     if (this._acc.sessionState.lineHeight >= 3) {
       this._acc.resetLineHeight();
@@ -56,7 +54,6 @@ export class MenuInterface implements IMenuInterface {
     }
     if (btn) this.updateCycleButton(btn, this._acc.sessionState.lineHeight, 3);
   }
-  decreaseLineHeight() { this._acc.alterLineHeight(false); }
 
   invertColors(destroy?: boolean) {
     const counterClass = '_access-invert-counter';
@@ -227,13 +224,14 @@ export class MenuInterface implements IMenuInterface {
     }
   }
 
+  private dispatchTextToSpeechState(state: 'normal' | 'fast' | 'slow' | 'off') {
+    document.dispatchEvent(new CustomEvent('access:textToSpeech', { detail: { state } }));
+  }
+
   textToSpeech(destroy?: boolean) {
-    const tSpeechList = this._acc.menu.querySelector('[data-access-action="textToSpeech"]');
+    const tSpeechList = this._acc.menu.querySelector<HTMLElement>('[data-access-action="textToSpeech"]');
     if (!tSpeechList) return;
 
-    const step1 = document.getElementsByClassName('screen-reader-wrapper-step-1');
-    const step2 = document.getElementsByClassName('screen-reader-wrapper-step-2');
-    const step3 = document.getElementsByClassName('screen-reader-wrapper-step-3');
     this._acc.onChange(false);
 
     const className = '_access-text-to-speech';
@@ -250,35 +248,38 @@ export class MenuInterface implements IMenuInterface {
     };
 
     if (destroy) {
-      tSpeechList.classList.remove('active');
-      step1[0]?.classList.remove('active');
-      step2[0]?.classList.remove('active');
-      step3[0]?.classList.remove('active');
+      this.updateCycleButton(tSpeechList, 0, 3);
       this._acc.stateValues.textToSpeech = false;
       window.speechSynthesis?.cancel();
+      tSpeechList.removeAttribute('data-speech-rate');
+      this.dispatchTextToSpeechState('off');
       return remove();
     }
 
     if (this._acc.stateValues.speechRate === 1 && !tSpeechList.classList.contains('active')) {
       this._acc.stateValues.textToSpeech = true;
       this._acc.textToSpeech('Screen Reader enabled. Reading Pace - Normal');
-      tSpeechList.classList.add('active');
-      step1[0]?.classList.add('active');
-      step2[0]?.classList.add('active');
-      step3[0]?.classList.add('active');
+      this.updateCycleButton(tSpeechList, 1, 3);
+      tSpeechList.setAttribute('data-speech-rate', 'normal');
+      this.dispatchTextToSpeechState('normal');
     } else if (this._acc.stateValues.speechRate === 1 && tSpeechList.classList.contains('active')) {
       this._acc.stateValues.speechRate = 1.5;
       this._acc.textToSpeech('Reading Pace - Fast');
-      step1[0]?.classList.remove('active');
+      this.updateCycleButton(tSpeechList, 2, 3);
+      tSpeechList.setAttribute('data-speech-rate', 'fast');
+      this.dispatchTextToSpeechState('fast');
     } else if (this._acc.stateValues.speechRate === 1.5 && tSpeechList.classList.contains('active')) {
       this._acc.stateValues.speechRate = 0.7;
       this._acc.textToSpeech('Reading Pace - Slow');
-      step2[0]?.classList.remove('active');
+      this.updateCycleButton(tSpeechList, 3, 3);
+      tSpeechList.setAttribute('data-speech-rate', 'slow');
+      this.dispatchTextToSpeechState('slow');
     } else {
       this._acc.stateValues.speechRate = 1;
       this._acc.textToSpeech('Screen Reader - Disabled');
-      tSpeechList.classList.remove('active');
-      step3[0]?.classList.remove('active');
+      this.updateCycleButton(tSpeechList, 0, 3);
+      tSpeechList.removeAttribute('data-speech-rate');
+      this.dispatchTextToSpeechState('off');
       const timeout = setInterval(() => {
         if (this._acc.isReading) return;
         this._acc.stateValues.textToSpeech = false;
@@ -293,63 +294,6 @@ export class MenuInterface implements IMenuInterface {
       this._acc.common.deployedObjects.set('.' + className, true);
       document.addEventListener('click', this.readBind, false);
       document.addEventListener('keyup', this.readBind, false);
-    }
-  }
-
-  speechToText(destroy?: boolean) {
-    const sTextList = this._acc.menu.querySelector('[data-access-action="speechToText"]');
-    if (!sTextList) return;
-
-    this._acc.onChange(false);
-    const className = '_access-speech-to-text';
-    const remove = () => {
-      this._acc.recognition?.stop?.();
-      this._acc.body.classList.remove('_access-listening');
-      document.querySelector('.' + className)?.parentElement?.removeChild(document.querySelector('.' + className)!);
-      this._acc.common.deployedObjects.remove('.' + className);
-      document.querySelectorAll('._access-mic').forEach(input => {
-        input.removeEventListener('focus', this._acc.listen.bind(this._acc), false);
-        input.classList.remove('_access-mic');
-      });
-      sTextList.classList.remove('active');
-    };
-
-    if (destroy) {
-      this._acc.stateValues.speechToText = false;
-      return remove();
-    }
-
-    this._acc.stateValues.speechToText = !this._acc.stateValues.speechToText;
-    if (this._acc.stateValues.speechToText) {
-      const iconContent = !this._acc.options.icon?.useEmojis ? '"mic"' : 'var(--_access-menu-item-icon-mic,"🎤")';
-      const fontFamily = !this._acc.options.icon?.useEmojis
-        ? `font-family: var(--_access-menu-item-icon-font-family-after, ${this._acc.fixedDefaultFont});`
-        : '';
-      const css = `
-        body:after {
-          content: ${iconContent};
-          ${fontFamily}
-          position: fixed; z-index: 1100; top: 1vw; right: 1vw;
-          width: 36px; height: 36px; font-size: 30px; line-height: 36px;
-          border-radius: 50%; background: rgba(255,255,255,0.7);
-          display: flex; justify-content: center; align-items: center;
-        }
-        body._access-listening:after { animation: _access-listening-animation 2s infinite ease; }
-        @keyframes _access-listening-animation {
-          0%  { background-color: transparent; }
-          50% { background-color: #EF9A9A; }
-        }
-      `;
-      this._acc.common.injectStyle(css, { className });
-      this._acc.common.deployedObjects.set('.' + className, true);
-      document.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="search"], textarea, [contenteditable]').forEach(input => {
-        input.addEventListener('blur', () => this._acc.recognition?.stop?.(), false);
-        input.addEventListener('focus', this._acc.listen.bind(this._acc), false);
-        input.parentElement!.classList.add('_access-mic');
-      });
-      sTextList.classList.add('active');
-    } else {
-      remove();
     }
   }
 
@@ -441,10 +385,9 @@ export class MenuInterface implements IMenuInterface {
             type: 'button',
             attrs: {
               role: 'button',
-              class: this._acc.options.icon?.useEmojis ? '' : (this._acc.options.icon?.fontClass ?? ''),
-              style: 'position:absolute;top:5px;cursor:pointer;font-size:24px!important;font-weight:bold;background:transparent;border:none;left:5px;color:#d63c3c;padding:0;',
+              style: 'position:absolute;top:15px;right:5px;cursor:pointer;font-size:16px!important;font-weight:bold;background:#f3f4f6;border:none;color:#d63c3c;padding:0;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;',
             },
-            children: [{ type: '#text', text: this._acc.options.icon?.useEmojis ? 'X' : 'close' }],
+            children: [{ type: '#text', text: 'X' }],
           }],
         },
         {
@@ -453,6 +396,79 @@ export class MenuInterface implements IMenuInterface {
             type: 'iframe',
             attrs: { src: button!.getAttribute('data-access-url'), style: 'width:50vw;height:50vh;padding:30px;' },
           }],
+        },
+      ],
+    }));
+    document.body.appendChild(this._dialog);
+    this._dialog.querySelector('button')!.addEventListener('click', onClose, false);
+    this._dialog.addEventListener('close', onClose);
+    this._dialog.showModal();
+  }
+
+  private formatHotkey(keys: Array<any>): string {
+    const names: Record<string, string> = { ctrlKey: 'Ctrl', altKey: 'Alt', shiftKey: 'Shift', metaKey: 'Meta' };
+    return keys
+      .map(val => Number.isInteger(val) ? String.fromCharCode(val).toUpperCase() : (names[val] ?? val))
+      .join(' + ');
+  }
+
+  hotkeysHelp() {
+    if (!this._acc.options.hotkeys?.enabled) return;
+
+    const close = () => {
+      if (this._dialog) {
+        this._dialog.classList.add('closing');
+        setTimeout(() => {
+          this._dialog.classList.remove('closing');
+          this._dialog.close();
+          this._dialog.remove();
+          detach();
+        }, 350);
+      }
+    };
+    const onClose = () => close();
+    const detach = () => {
+      this._dialog?.querySelector('button')?.removeEventListener('click', onClose, false);
+      this._dialog?.removeEventListener('close', onClose);
+    };
+
+    const keys = this._acc.options.hotkeys!.keys as any;
+    const labels = this._acc.options.labels!;
+    const mods = this._acc.options.modules ?? {};
+    const rows = Object.keys(keys)
+      .filter(name => name === 'toggleMenu' || (mods as any)[name] !== false)
+      .map(name => ({
+        type: 'li',
+        children: [
+          { type: 'span', children: [{ type: '#text', text: name === 'toggleMenu' ? labels.menuTitle : (labels as any)[name] }] },
+          { type: 'span', attrs: { class: '_access-hotkeys-help-combo' }, children: [{ type: '#text', text: this.formatHotkey(keys[name]) }] },
+        ],
+      }));
+
+    if (!this._dialog) this._dialog = document.createElement('dialog');
+    this._dialog.classList.add('_access');
+    this._dialog.innerHTML = '';
+    this._dialog.appendChild(this._acc.common.jsonToHtml({
+      type: 'div',
+      children: [
+        {
+          type: 'div',
+          children: [{
+            type: 'button',
+            attrs: {
+              role: 'button',
+              style: 'position:absolute;top:15px;right:5px;cursor:pointer;font-size:16px!important;font-weight:bold;background:#f3f4f6;border:none;color:#d63c3c;padding:0;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;',
+            },
+            children: [{ type: '#text', text: 'X' }],
+          }],
+        },
+        {
+          type: 'div',
+          attrs: { style: 'padding:30px; max-width:70vw;' },
+          children: [
+            { type: 'h2', children: [{ type: '#text', text: labels.hotkeysHelpTitle }] },
+            { type: 'ul', attrs: { class: '_access-hotkeys-help-list' }, children: rows as any },
+          ],
         },
       ],
     }));
@@ -477,12 +493,18 @@ export class MenuInterface implements IMenuInterface {
 
   dyslexicFont(destroy?: boolean) {
     const className = '_access-dyslexic-font';
+    const linkClassName = '_access-dyslexic-font-link';
     const btn = this._acc.menu.querySelector('[data-access-action="dyslexicFont"]');
+    const remove = () => {
+      document.querySelector('.' + className)?.remove();
+      document.querySelector('.' + linkClassName)?.remove();
+      this._acc.common.deployedObjects.remove('.' + linkClassName);
+    };
 
     if (destroy) {
       this._acc.stateValues.dyslexicFont = false;
       btn?.classList.remove('active');
-      document.querySelector('.' + className)?.remove();
+      remove();
       return;
     }
 
@@ -490,17 +512,21 @@ export class MenuInterface implements IMenuInterface {
     btn?.classList.toggle('active');
 
     if (this._acc.stateValues.dyslexicFont) {
-      this._acc.common.injectStyle(`
-        @font-face {
-          font-family: 'OpenDyslexic';
-          src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/open-dyslexic-regular.woff2') format('woff2');
-          font-weight: normal; font-style: normal;
-        }
-        body *:not(._access):not(._access *) { font-family: OpenDyslexic, Arial, sans-serif !important; }
-      `, { className });
+      if (!document.querySelector('.' + linkClassName)) {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'https://fonts.googleapis.com/css2?family=Lexend&display=swap';
+        link.className = linkClassName;
+        document.head.appendChild(link);
+        this._acc.common.deployedObjects.set('.' + linkClassName, true);
+      }
+      this._acc.common.injectStyle(
+        `body *:not(._access):not(._access *) { font-family: 'Lexend', Arial, sans-serif !important; }`,
+        { className }
+      );
       this._acc.common.deployedObjects.set('.' + className, false);
     } else {
-      document.querySelector('.' + className)?.remove();
+      remove();
     }
   }
 

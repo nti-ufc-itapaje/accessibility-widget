@@ -75,18 +75,14 @@ new Accessibility.Accessibility({
   // Módulos visíveis (true = visível, false = oculto)
   modules: {
     increaseText:        true,
-    decreaseText:        true,
     increaseTextSpacing: true,
-    decreaseTextSpacing: true,
     increaseLineHeight:  true,
-    decreaseLineHeight:  true,
     invertColors:        true,
     grayHues:            true,
     bigCursor:           true,
     readingGuide:        true,
     underlineLinks:      true,
     textToSpeech:        true,
-    speechToText:        true,
     disableAnimations:   true,
     dyslexicFont:        true,
     hideImages:          true,
@@ -98,10 +94,9 @@ new Accessibility.Accessibility({
   // Logo exibido no rodapé do menu
   logoImage: 'https://exemplo.com/logo.png',
 
-  // Idioma para texto-para-fala e fala-para-texto
+  // Idioma para texto-para-fala
   language: {
     textToSpeechLang: 'pt-BR',
-    speechToTextLang: 'pt-BR',
   },
 });
 ```
@@ -112,21 +107,75 @@ new Accessibility.Accessibility({
 
 | Módulo | Descrição |
 |---|---|
-| `increaseText` / `decreaseText` | Aumenta ou diminui o tamanho da fonte |
-| `increaseTextSpacing` / `decreaseTextSpacing` | Ajusta espaçamento entre palavras e letras |
-| `increaseLineHeight` / `decreaseLineHeight` | Ajusta a altura de linha |
+| `increaseText` | Aumenta o tamanho da fonte em 3 níveis, voltando ao tamanho original ao final do ciclo |
+| `increaseTextSpacing` | Aumenta o espaçamento entre palavras e letras em 3 níveis, com o mesmo ciclo |
+| `increaseLineHeight` | Aumenta a altura de linha em 3 níveis, com o mesmo ciclo |
 | `invertColors` | Alto contraste invertendo as cores |
 | `grayHues` | Remove todas as cores (tons de cinza) |
 | `bigCursor` | Cursor do mouse maior |
 | `readingGuide` | Barra horizontal que segue o mouse |
 | `underlineLinks` | Sublinha todos os links da página |
-| `textToSpeech` | Lê o conteúdo clicado em voz alta |
-| `speechToText` | Dita em campos de formulário via microfone |
+| `textToSpeech` | Lê o conteúdo clicado em voz alta. Cada clique alterna o estado: liga (normal) → rápido → lento → desliga |
 | `disableAnimations` | Remove animações e transições CSS |
-| `dyslexicFont` | Aplica fonte OpenDyslexic na página |
+| `dyslexicFont` | Aplica fonte Lexend na página |
 | `hideImages` | Oculta todas as imagens da página |
 
-> `speechToText` requer HTTPS e navegador com suporte a `webkitSpeechRecognition`.
+---
+
+## Atalhos de teclado
+
+Os atalhos vêm desativados por padrão. Para habilitar:
+
+```js
+new Accessibility.Accessibility({
+  hotkeys: { enabled: true },
+});
+```
+
+| Ação | Atalho padrão |
+|---|---|
+| Abrir/fechar menu | `Ctrl+Alt+A` |
+| `increaseText` | `Ctrl+Alt+F` |
+| `increaseTextSpacing` | `Ctrl+Alt+S` |
+| `increaseLineHeight` | `Ctrl+Alt+L` |
+| `invertColors` | `Ctrl+Alt+I` |
+| `grayHues` | `Ctrl+Alt+G` |
+| `underlineLinks` | `Ctrl+Alt+U` |
+| `bigCursor` | `Ctrl+Alt+C` |
+| `readingGuide` | `Ctrl+Alt+R` |
+| `textToSpeech` | `Ctrl+Alt+T` |
+| `disableAnimations` | `Ctrl+Alt+Q` |
+| `dyslexicFont` | `Ctrl+Alt+D` |
+| `hideImages` | `Ctrl+Alt+H` |
+
+Os botões de ciclo (`increaseText`, `increaseTextSpacing`, `increaseLineHeight` — 3 níveis — e `textToSpeech` — normal/rápido/lento/desliga) funcionam do mesmo jeito pelo atalho: cada pressionada avança um passo no ciclo, exatamente como um clique no botão.
+
+Quando `hotkeys.enabled` está ligado, um botão de ajuda aparece no rodapé do menu (aberto), logo abaixo do botão "Redefinir". Clicar nele (ou dar Enter com foco nele) abre uma lista com a ação e o atalho de cada módulo ativo.
+
+Para trocar as teclas, sobrescreva `hotkeys.keys`:
+
+```js
+new Accessibility.Accessibility({
+  hotkeys: {
+    enabled: true,
+    keys: {
+      textToSpeech: ['ctrlKey', 'altKey', 84], // 84 = tecla "T"
+    },
+  },
+});
+```
+
+---
+
+## Evento de mudança do texto-para-fala
+
+A cada clique no botão `textToSpeech`, o widget dispara um `CustomEvent` chamado `access:textToSpeech` no `document`, com o estado atual em `event.detail.state`. Valores possíveis: `'normal'`, `'fast'`, `'slow'`, `'off'`.
+
+```js
+document.addEventListener('access:textToSpeech', (event) => {
+  console.log('Texto para fala:', event.detail.state);
+});
+```
 
 ---
 

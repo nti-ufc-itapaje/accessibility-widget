@@ -31,8 +31,6 @@ export class Accessibility implements IAccessibility {
   private _menu!: HTMLElement;
   private _htmlOrgFontSize!: string;
   private _stateValues!: IStateValues;
-  private _recognition: any;
-  private _speechToTextTarget!: HTMLElement;
   private _onKeyDownBind: any;
   private _fixedDefaultFont: string;
 
@@ -81,7 +79,7 @@ export class Accessibility implements IAccessibility {
       });
     }
 
-    if (this.options.modules?.speechToText) {
+    if (this.options.modules?.textToSpeech) {
       window.addEventListener('beforeunload', () => {
         if (this._isReading) {
           window.speechSynthesis.cancel();
@@ -99,7 +97,6 @@ export class Accessibility implements IAccessibility {
   get sessionState() { return this._sessionState; }
   set sessionState(value: ISessionState) { this._sessionState = value; }
   get common() { return this._common; }
-  get recognition() { return this._recognition; }
   get isReading() { return this._isReading; }
   set isReading(value: boolean) { this._isReading = value; }
   get fixedDefaultFont() { return this._fixedDefaultFont; }
@@ -119,14 +116,18 @@ export class Accessibility implements IAccessibility {
         helpTitles: true,
         keys: {
           toggleMenu: ['ctrlKey', 'altKey', 65],
+          increaseText: ['ctrlKey', 'altKey', 70],
+          increaseTextSpacing: ['ctrlKey', 'altKey', 83],
+          increaseLineHeight: ['ctrlKey', 'altKey', 76],
           invertColors: ['ctrlKey', 'altKey', 73],
           grayHues: ['ctrlKey', 'altKey', 71],
           underlineLinks: ['ctrlKey', 'altKey', 85],
           bigCursor: ['ctrlKey', 'altKey', 67],
           readingGuide: ['ctrlKey', 'altKey', 82],
           textToSpeech: ['ctrlKey', 'altKey', 84],
-          speechToText: ['ctrlKey', 'altKey', 83],
           disableAnimations: ['ctrlKey', 'altKey', 81],
+          dyslexicFont: ['ctrlKey', 'altKey', 68],
+          hideImages: ['ctrlKey', 'altKey', 72],
         },
       },
       guide: { cBorder: '#20ff69', cBackground: '#000000', height: '12px' },
@@ -134,13 +135,13 @@ export class Accessibility implements IAccessibility {
       suppressDomInjection: false,
       labels: {
         resetTitle: 'Reset', closeTitle: 'Close', menuTitle: 'Accessibility Options',
-        increaseText: 'increase text size', decreaseText: 'decrease text size',
-        increaseTextSpacing: 'increase text spacing', decreaseTextSpacing: 'decrease text spacing',
+        increaseText: 'increase text size',
+        increaseTextSpacing: 'increase text spacing',
         invertColors: 'invert colors', grayHues: 'gray hues', bigCursor: 'big cursor',
         readingGuide: 'reading guide', underlineLinks: 'underline links',
-        textToSpeech: 'text to speech', speechToText: 'speech to text',
+        textToSpeech: 'text to speech',
         disableAnimations: 'disable animations', increaseLineHeight: 'increase line height',
-        decreaseLineHeight: 'decrease line height', hotkeyPrefix: 'Hotkey: ',
+        hotkeyPrefix: 'Hotkey: ', hotkeysHelpTitle: 'Keyboard shortcuts',
         dyslexicFont: 'Dyslexic font', hideImages: 'Hide images',
       },
       textPixelMode: false,
@@ -148,10 +149,9 @@ export class Accessibility implements IAccessibility {
       textSizeFactor: 12.5,
       animations: { buttons: true },
       modules: {
-        increaseText: true, decreaseText: true, increaseTextSpacing: true,
-        decreaseTextSpacing: true, increaseLineHeight: true, decreaseLineHeight: true,
+        increaseText: true, increaseTextSpacing: true, increaseLineHeight: true,
         invertColors: true, grayHues: true, bigCursor: true, readingGuide: true,
-        underlineLinks: true, textToSpeech: true, speechToText: true, disableAnimations: true,
+        underlineLinks: true, textToSpeech: true, disableAnimations: true,
         dyslexicFont: true, hideImages: true,
       },
       modulesOrder: [] as Array<IAccessibilityModuleOrder>,
@@ -162,7 +162,7 @@ export class Accessibility implements IAccessibility {
       feedback: { url: '' },
       linkSelector: 'a',
       logoImage: 'https://cdn.jsdelivr.net/npm/ufc-itapaje-accessibility/dist/logo-ufc.png',
-      language: { textToSpeechLang: '', speechToTextLang: '' },
+      language: { textToSpeechLang: '' },
     };
 
     Object.keys(AccessibilityModulesType)
@@ -211,10 +211,6 @@ export class Accessibility implements IAccessibility {
   }
 
   disabledUnsupportedFeatures() {
-    if (!('webkitSpeechRecognition' in window) || location.protocol !== 'https:') {
-      this._common.warn('speech to text requires a browser with webkitSpeechRecognition and https');
-      this.options.modules!.speechToText = false;
-    }
     const w = window as any;
     if (!w.SpeechSynthesisUtterance || !w.speechSynthesis) {
       this._common.warn('text to speech is not supported in this browser');
@@ -237,20 +233,20 @@ export class Accessibility implements IAccessibility {
         transition-duration: var(--_access-menu-dialog-backdrop-transition-duration, 0.35s);
         transition-timing-function: var(--_access-menu-dialog-backdrop-transition-timing-function, ease-in-out);
       }
-      dialog._access:modal { border-color: transparent; border-width: 0; padding: 0; }
+      dialog._access:modal { border-color: transparent; border-radius: 10px; border-width: 0; padding: 0; }
       dialog._access[open]::backdrop {
         background: var(--_access-menu-dialog-backdrop-background-end, rgba(0,0,0,0.5));
         animation: _access-dialog-backdrop var(--_access-menu-dialog-backdrop-transition-duration, 0.35s) ease-in-out;
       }
       dialog._access.closing[open]::backdrop { background: var(--_access-menu-dialog-backdrop-background-start, rgba(0,0,0,0.1)); }
       dialog._access.closing[open] { opacity: 0; }
-      .screen-reader-wrapper { margin: 0; position: absolute; bottom: -4px; width: calc(100% - 2px); left: 1px; }
+      .screen-reader-wrapper { margin: 0; position: absolute; bottom: -4px; width: calc(100% - 2px); right: 1px; height: 4px; z-index: 1; }
       .screen-reader-wrapper-step-1, .screen-reader-wrapper-step-2, .screen-reader-wrapper-step-3 {
-        float: left; background: var(--_access-menu-background-color, #fff);
-        width: 33.33%; height: 3px; border-radius: 10px;
+        float: left; background: var(--_access-menu-step-inactive-background, rgba(0,0,0,0.15));
+        width: 33.33%; height: 4px; border-radius: 10px;
       }
       .screen-reader-wrapper-step-1.active, .screen-reader-wrapper-step-2.active, .screen-reader-wrapper-step-3.active {
-        background: var(--_access-menu-item-button-background, #f9f9f9);
+        background: var(--_access-menu-step-active-background, var(--_access-menu-item-button-active-border-color, #0048FF));
       }
       .access_read_guide_bar {
         box-sizing: border-box;
@@ -314,6 +310,35 @@ export class Accessibility implements IAccessibility {
             overflow-y: auto;
         }
         ._access-icon:hover { transform: var(--_access-icon-transform-hover, scale(1.1)); }
+        ._access-menu ._menu-hotkeys-help-btn {
+            position: relative;
+            width: 90%;
+            min-height: 40px !important;
+            height: auto !important;
+            padding: 8px 15px !important;
+            margin: 0 auto 10px !important;
+            background: transparent;
+            color: var(--_access-menu-item-color, rgba(0,0,0,.8));
+            border: 1px solid rgba(0,0,0,.2) !important;
+            border-radius: 10px;
+            cursor: pointer;
+            font-style: normal !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 6px;
+            outline: none;
+            box-sizing: border-box !important;
+            font-size: 14px !important;
+            line-height: 1 !important;
+            text-decoration: none !important;
+            -webkit-appearance: none;
+            appearance: none;
+          }
+        ._access-menu ._menu-hotkeys-help-btn:hover { scale: 1.03; }
+        ._access-hotkeys-help-list { list-style: none; margin: 16px 0 0; padding: 0; max-height: 50vh; overflow-y: auto; }
+        ._access-hotkeys-help-list li { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,.1); }
+        ._access-hotkeys-help-combo { font-family: monospace; background: rgba(0,0,0,.06); padding: 2px 8px; border-radius: 4px; white-space: nowrap; }
         ._access-menu {
           user-select: none; position: fixed;
           width: var(--_access-menu-width, ${Accessibility.MENU_WIDTH});
@@ -373,7 +398,7 @@ export class Accessibility implements IAccessibility {
 
             padding: 10px;
             color: #FFFFFF;
-            border-radius: 50%;
+            border-radius: 50% !important;
             transition: .3s ease;
             transform: rotate(0deg);
             -style: normal !important;
@@ -527,21 +552,20 @@ export class Accessibility implements IAccessibility {
         ._access-menu ul li button.active svg path { fill: var(--_access-menu-item-active-icon-color, #0048FF); }
         ._access-menu ul li:hover button:before { color: var(--_access-menu-item-hover-icon-color, #003366); }
         ._access-menu ul li button[data-access-action="increaseText"]:before { content: var(--_access-menu-item-icon-increase-text, ${!useEmojis ? '"zoom_in"' : '"🔼"'}); top: var(--_access-menu-item-icon-increase-text-top, ${iconTop}); left: var(--_access-menu-item-icon-increase-text-left, ${iconLeft}); }
-        ._access-menu ul li button[data-access-action="decreaseText"]:before { content: var(--_access-menu-item-icon-decrease-text, ${!useEmojis ? '"zoom_out"' : '"🔽"'}); top: ${iconTop}; left: ${iconLeft}; }
         ._access-menu ul li button[data-access-action="increaseTextSpacing"]:before { content: var(--_access-menu-item-icon-increase-text-spacing, ${!useEmojis ? '"unfold_more"' : '"🔼"'}); transform: var(--_access-menu-item-icon-increase-text-spacing-transform, rotate(90deg) translate(-7px, 2px)); top: 14px; left: 0; }
-        ._access-menu ul li button[data-access-action="decreaseTextSpacing"]:before { content: var(--_access-menu-item-icon-decrease-text-spacing, ${!useEmojis ? '"unfold_less"' : '"🔽"'}); transform: var(--_access-menu-item-icon-decrease-text-spacing-transform, rotate(90deg) translate(-7px, 2px)); top: 14px; left: 0; }
         ._access-menu ul li button[data-access-action="invertColors"]:before { content: var(--_access-menu-item-icon-invert-colors, ${!useEmojis ? '"invert_colors"' : '"🎆"'}); top: ${iconTop}; left: ${iconLeft}; }
         ._access-menu ul li button[data-access-action="grayHues"]:before { content: var(--_access-menu-item-icon-gray-hues, ${!useEmojis ? '"format_color_reset"' : '"🌫️"'}); top: ${iconTop}; left: ${iconLeft}; }
         ._access-menu ul li button[data-access-action="underlineLinks"]:before { content: var(--_access-menu-item-icon-underline-links, ${!useEmojis ? '"format_underlined"' : '"🔗"'}); top: ${iconTop}; left: ${iconLeft}; }
         ._access-menu ul li button[data-access-action="bigCursor"]:before { content: var(--_access-menu-item-icon-big-cursor, inherit); top: ${iconTop}; left: ${iconLeft}; }
         ._access-menu ul li button[data-access-action="readingGuide"]:before { content: var(--_access-menu-item-icon-reading-guide, ${!useEmojis ? '"border_horizontal"' : '"↔️"'}); top: ${iconTop}; left: ${iconLeft}; }
-        ._access-menu ul li button[data-access-action="textToSpeech"]:before { content: var(--_access-menu-item-icon-text-to-speech, ${!useEmojis ? '"record_voice_over"' : '"⏺️"'}); top: ${iconTop}; left: ${iconLeft}; }
-        ._access-menu ul li button[data-access-action="speechToText"]:before { content: var(--_access-menu-item-icon-speech-to-text, ${!useEmojis ? '"mic"' : '"🎤"'}); top: ${iconTop}; left: ${iconLeft}; }
+        ._access-menu ul li button[data-access-action="textToSpeech"]:before { content: var(--_access-menu-item-icon-text-to-speech-off, ${!useEmojis ? '"voice_over_off"' : '"🔇"'}); top: ${iconTop}; left: ${iconLeft}; }
+        ._access-menu ul li button[data-access-action="textToSpeech"][data-speech-rate="normal"]:before { content: var(--_access-menu-item-icon-text-to-speech-normal, ${!useEmojis ? '"play_circle"' : '"▶️"'}); }
+        ._access-menu ul li button[data-access-action="textToSpeech"][data-speech-rate="fast"]:before { content: var(--_access-menu-item-icon-text-to-speech-fast, ${!useEmojis ? '"fast_forward"' : '"⏩"'}); }
+        ._access-menu ul li button[data-access-action="textToSpeech"][data-speech-rate="slow"]:before { content: var(--_access-menu-item-icon-text-to-speech-slow, ${!useEmojis ? '"slow_motion_video"' : '"🐢"'}); }
         ._access-menu ul li button[data-access-action="disableAnimations"]:before { content: var(--_access-menu-item-icon-disable-animations, ${!useEmojis ? '"animation"' : '"🏃‍♂️"'}); top: ${iconTop}; left: ${iconLeft}; }
         ._access-menu ul li button[data-access-action="iframeModals"]:before { content: var(--_access-menu-item-icon-iframe-modals, ${!useEmojis ? '"policy"' : '"⚖️"'}); top: ${iconTop}; left: ${iconLeft}; }
         ._access-menu ul li button[data-access-action="customFunctions"]:before { content: var(--_access-menu-item-icon-custom-functions, ${!useEmojis ? '"psychology_alt"' : '"❓"'}); top: ${iconTop}; left: ${iconLeft}; }
         ._access-menu ul li button[data-access-action="increaseLineHeight"]:before { content: var(--_access-menu-item-icon-increase-line-height, ${!useEmojis ? '"unfold_more"' : '"🔼"'}); top: ${iconTop}; left: ${iconLeft}; }
-        ._access-menu ul li button[data-access-action="decreaseLineHeight"]:before { content: var(--_access-menu-item-icon-decrease-line-height, ${!useEmojis ? '"unfold_less"' : '"🔽"'}); top: ${iconTop}; left: ${iconLeft}; }
         ._access-menu ul li button[data-access-action="dyslexicFont"]:before { content: var(--_access-menu-item-icon-dyslexic-font, ${!useEmojis ? '"font_download"' : '"🔤"'}); top: ${iconTop}; left: ${iconLeft}; }
         ._access-menu ul li button[data-access-action="hideImages"]:before { content: var(--_access-menu-item-icon-hide-images, ${!useEmojis ? '"hide_image"' : '"🚫"'}); top: ${iconTop}; left: ${iconLeft}; }
         ._access-menu-logo {
@@ -593,20 +617,17 @@ export class Accessibility implements IAccessibility {
     const hotkeys = this.options.hotkeys!;
     const mods = this.options.modules ?? {};
     const menuItems: IJsonToHtml[] = [
-      { action: 'increaseText', label: labels.increaseText },
-      { action: 'decreaseText', label: labels.decreaseText },
-      { action: 'increaseTextSpacing', label: labels.increaseTextSpacing },
-      { action: 'decreaseTextSpacing', label: labels.decreaseTextSpacing },
-      { action: 'increaseLineHeight', label: labels.increaseLineHeight },
-      { action: 'decreaseLineHeight', label: labels.decreaseLineHeight },
+      { action: 'increaseText', label: labels.increaseText, hotkey: hotkeys.keys.increaseText },
+      { action: 'increaseTextSpacing', label: labels.increaseTextSpacing, hotkey: hotkeys.keys.increaseTextSpacing },
+      { action: 'increaseLineHeight', label: labels.increaseLineHeight, hotkey: hotkeys.keys.increaseLineHeight },
       { action: 'invertColors', label: labels.invertColors, hotkey: hotkeys.keys.invertColors },
       { action: 'grayHues', label: labels.grayHues, hotkey: hotkeys.keys.grayHues },
       { action: 'underlineLinks', label: labels.underlineLinks, hotkey: hotkeys.keys.underlineLinks },
       { action: 'bigCursor', label: labels.bigCursor, hotkey: hotkeys.keys.bigCursor },
       { action: 'readingGuide', label: labels.readingGuide, hotkey: hotkeys.keys.readingGuide },
       { action: 'disableAnimations', label: labels.disableAnimations, hotkey: hotkeys.keys.disableAnimations },
-      { action: 'dyslexicFont', label: labels.dyslexicFont },
-      { action: 'hideImages', label: labels.hideImages },
+      { action: 'dyslexicFont', label: labels.dyslexicFont, hotkey: hotkeys.keys.dyslexicFont },
+      { action: 'hideImages', label: labels.hideImages, hotkey: hotkeys.keys.hideImages },
     ].filter(({ action }) => (mods as any)[action] !== false)
       .map(({ action, label, hotkey }: any) => ({
         type: 'li',
@@ -650,6 +671,14 @@ export class Accessibility implements IAccessibility {
                 { type: 'span', children: [{ type: '#text', text: labels.resetTitle }] },
               ],
             },
+            ...(hotkeys.enabled ? [{
+              type: 'button',
+              attrs: { class: '_menu-hotkeys-help-btn', title: labels.hotkeysHelpTitle },
+              children: [
+                { type: 'span', attrs: { class: this.options.icon!.fontClass, style: `font-family: var(--_access-menu-hotkeys-help-btn-font-family, ${this._fixedDefaultFont}); font-size: 16px; line-height: 1;` }, children: [{ type: '#text', text: !this.options.icon?.useEmojis ? 'help' : '❓' }] },
+                { type: 'span', children: [{ type: '#text', text: labels.hotkeysHelpTitle }] },
+              ],
+            }] : []),
           ],
         },
 
@@ -727,6 +756,7 @@ export class Accessibility implements IAccessibility {
 
     addToggleListener(menuElem.querySelector('._menu-close-btn'), () => this.toggleMenu());
     addToggleListener(menuElem.querySelector('._menu-reset-btn'), () => this.resetAll());
+    addToggleListener(menuElem.querySelector('._menu-hotkeys-help-btn'), () => this.menuInterface.hotkeysHelp());
 
     return menuElem;
   }
@@ -742,12 +772,12 @@ export class Accessibility implements IAccessibility {
 
   async injectTts(): Promise<void> {
     const voices = await this.getVoices();
-    const targetLang = this.options.language!.textToSpeechLang.toLowerCase();
-    const isLngSupported = !targetLang || voices.some(v =>
-      v.lang.toLowerCase() === targetLang ||
-      v.lang.toLowerCase().startsWith(targetLang.split('-')[0])
-    );
-    if (!isLngSupported) return;
+    const targetLang = this.options.language!.textToSpeechLang;
+    const isLngSupported = !targetLang || !!this.pickVoice(voices, targetLang);
+    if (!isLngSupported) {
+      this._common.warn(`text to speech: no voice found for language "${targetLang}", hiding the textToSpeech button.`);
+      return;
+    }
 
     const tts = this.common.jsonToHtml({
       type: 'li',
@@ -756,27 +786,10 @@ export class Accessibility implements IAccessibility {
         attrs: { 'data-access-action': 'textToSpeech', title: this.parseKeys(this.options.hotkeys!.keys.textToSpeech) },
         children: [
           { type: '#text', text: this.options.labels!.textToSpeech },
-          {
-            type: 'div', attrs: { class: 'screen-reader-wrapper' }, children: [
-              { type: 'div', attrs: { class: 'screen-reader-wrapper-step-1', tabIndex: '-1' } },
-              { type: 'div', attrs: { class: 'screen-reader-wrapper-step-2', tabIndex: '-1' } },
-              { type: 'div', attrs: { class: 'screen-reader-wrapper-step-3', tabIndex: '-1' } },
-            ]
-          },
         ],
       }],
     });
-    const sts = this.common.jsonToHtml({
-      type: 'li',
-      children: [{
-        type: 'button',
-        attrs: { 'data-access-action': 'speechToText', title: this.parseKeys(this.options.hotkeys!.keys.speechToText) },
-        children: [{ type: '#text', text: this.options.labels!.speechToText }],
-      }],
-    });
-
     const ul = this._menu.querySelector('ul')!;
-    ul.appendChild(sts);
     ul.appendChild(tts);
   }
 
@@ -792,16 +805,6 @@ export class Accessibility implements IAccessibility {
         })
       );
     });
-
-    [...Array.from(this._menu.getElementsByClassName('screen-reader-wrapper-step-1')),
-    ...Array.from(this._menu.getElementsByClassName('screen-reader-wrapper-step-2')),
-    ...Array.from(this._menu.getElementsByClassName('screen-reader-wrapper-step-3'))
-    ].forEach(el =>
-      el.addEventListener('click', (e: Event) => {
-        const action = (e.target as HTMLElement).parentElement!.parentElement!.getAttribute('data-access-action')!;
-        this.invoke(action, e.target as HTMLElement);
-      }, false)
-    );
   }
 
   sortModuleTypes() {
@@ -825,7 +828,6 @@ export class Accessibility implements IAccessibility {
 
   resetAll() {
     this.menuInterface.textToSpeech(true);
-    this.menuInterface.speechToText(true);
     this.menuInterface.disableAnimations(true);
     this.menuInterface.underlineLinks(true);
     this.menuInterface.grayHues(true);
@@ -969,30 +971,15 @@ export class Accessibility implements IAccessibility {
     if (this._stateValues.textToSpeech) this.textToSpeech(`Text Spacing ${isIncrease ? 'Increased' : 'Decreased'}`);
   }
 
-  speechToText() {
-    const SR = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-    if (!SR) return;
-    this._recognition = new SR();
-    this._recognition.continuous = true;
-    this._recognition.interimResults = true;
-    this._recognition.onstart = () => this._body.classList.add('_access-listening');
-    this._recognition.onend = () => this._body.classList.remove('_access-listening');
-    this._recognition.onresult = (event: any) => {
-      if (typeof event.results === 'undefined') return;
-      let final = '';
-      for (let i = event.resultIndex; i < event.results.length; ++i)
-        if (event.results[i].isFinal) final += event.results[i][0].transcript;
-      if (final && this._speechToTextTarget) {
-        this._speechToTextTarget.parentElement!.classList.remove('_access-listening');
-        const tag = this._speechToTextTarget.tagName.toLowerCase();
-        if (tag === 'input' || tag === 'textarea')
-          (this._speechToTextTarget as HTMLInputElement).value = final;
-        else if (this._speechToTextTarget.getAttribute('contenteditable') !== null)
-          this._speechToTextTarget.innerText = final;
-      }
-    };
-    this._recognition.lang = this.options.language!.speechToTextLang;
-    this._recognition.start();
+  pickVoice(voices: SpeechSynthesisVoice[], lang: string): SpeechSynthesisVoice | undefined {
+    if (!lang) return undefined;
+    const target = lang.toLowerCase();
+    const base = target.split('-')[0];
+    const candidates = voices.filter(v => v.lang.toLowerCase() === target || v.lang.toLowerCase().startsWith(base));
+    if (!candidates.length) return undefined;
+    const exact = candidates.filter(v => v.lang.toLowerCase() === target);
+    const pool = exact.length ? exact : candidates;
+    return pool.find(v => !v.localService) ?? pool[0];
   }
 
   textToSpeech(text: string) {
@@ -1003,8 +990,8 @@ export class Accessibility implements IAccessibility {
     msg.rate = this._stateValues.speechRate;
     msg.onend = () => { this._isReading = false; };
     const voices = w.speechSynthesis.getVoices();
-    const voice = voices.find((v: SpeechSynthesisVoice) => v.lang === msg.lang);
-    if (voice) msg.voice = voice;
+    const voice = this.pickVoice(voices, msg.lang);
+    if (voice) { msg.voice = voice; msg.lang = voice.lang; }
     else this._common.warn('text to speech language not supported!');
     if (window.speechSynthesis.pending || window.speechSynthesis.speaking) window.speechSynthesis.cancel();
     window.speechSynthesis.speak(msg);
@@ -1015,12 +1002,6 @@ export class Accessibility implements IAccessibility {
     return this._common.createScreenshot(url);
   }
 
-  listen() {
-    this._recognition?.stop?.();
-    this._speechToTextTarget = (window as any).event?.target as HTMLElement;
-    this.speechToText();
-  }
-
   read(e: Event) {
     try {
       e = (window as any).event || e;
@@ -1029,21 +1010,23 @@ export class Accessibility implements IAccessibility {
     } catch { }
 
     const menuEls = Array.from(document.querySelectorAll('._access-menu *'));
-    if (menuEls.includes((window as any).event?.target as Element) && e instanceof MouseEvent) return;
+    if (menuEls.includes(e?.target as Element) && e instanceof MouseEvent) return;
 
     if (e instanceof KeyboardEvent && (e.shiftKey && e.key === 'Tab' || e.key === 'Tab')) {
-      this.textToSpeech(((window as any).event?.target as HTMLElement)?.innerText);
+      this.textToSpeech((e?.target as HTMLElement)?.innerText);
       return;
     }
 
     if (this._isReading) { window.speechSynthesis.cancel(); this._isReading = false; }
-    else this.textToSpeech(((window as any).event?.target as HTMLElement)?.innerText);
+    else this.textToSpeech((e?.target as HTMLElement)?.innerText);
   }
 
   runHotkey(name: string) {
     if (name === 'toggleMenu') { this.toggleMenu(); return; }
-    if (typeof (this.menuInterface as any)[name] === 'function' && (this._options.modules as any)[name])
-      (this.menuInterface as any)[name](false);
+    if (typeof (this.menuInterface as any)[name] === 'function' && (this._options.modules as any)[name]) {
+      const btn = this._menu.querySelector<HTMLElement>(`[data-access-action="${name}"]`) ?? undefined;
+      (this.menuInterface as any)[name](undefined, btn);
+    }
   }
 
   toggleMenu() {
@@ -1086,12 +1069,14 @@ export class Accessibility implements IAccessibility {
       setTimeout(() => { this._icon.style.opacity = '1'; }, 10);
 
       document.addEventListener('keydown', (e: KeyboardEvent) => {
+        if (document.querySelector('dialog._access[open]')) return;
         if (e.key === 'Escape' && !this._menu.classList.contains('close')) this.toggleMenu();
       }, false);
 
       document.addEventListener('click', (e: MouseEvent) => {
         if (this._menu.classList.contains('close')) return;
         if (this._menu.contains(e.target as Node) || this._icon.contains(e.target as Node)) return;
+        if ((e.target as HTMLElement)?.closest?.('dialog._access')) return;
         this.toggleMenu();
       }, false);
     }
