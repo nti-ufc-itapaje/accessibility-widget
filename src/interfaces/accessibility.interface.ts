@@ -11,7 +11,6 @@ export interface IAccessibility {
   readonly html: HTMLElement;
   readonly body: HTMLBodyElement;
   readonly menu: HTMLElement;
-  readonly recognition: any;
   readonly fixedDefaultFont: string;
   alterTextSize(isIncrease: boolean): void;
   alterTextSpace(isIncrease: boolean): void;
@@ -19,9 +18,7 @@ export interface IAccessibility {
   resetTextSize(): void;
   resetTextSpace(): void;
   resetLineHeight(): void;
-  speechToText(): void;
   textToSpeech(text: string): void;
-  listen(): void;
   read(e?: Event): void;
   runHotkey(name: string): void;
   toggleMenu(): void;
@@ -41,7 +38,6 @@ export interface IAccessibilityOptions {
   guide?: IAccessibilityGuideOptions;
   labels?: IAccessibilityMenuLabelsOptions;
   textToSpeechLang?: string;
-  speechToTextLang?: string;
   textPixelMode?: boolean;
   textEmlMode?: boolean;
   textSizeFactor?: number;
@@ -111,14 +107,18 @@ export interface IAccessibilityHotkeysOptions {
 
 export interface IAccessibilityHotkeysKeysOptions {
   toggleMenu: Array<any>;
+  increaseText: Array<any>;
+  increaseTextSpacing: Array<any>;
+  increaseLineHeight: Array<any>;
   invertColors: Array<any>;
   grayHues: Array<any>;
   underlineLinks: Array<any>;
   bigCursor: Array<any>;
   readingGuide: Array<any>;
   textToSpeech: Array<any>;
-  speechToText: Array<any>;
   disableAnimations: Array<any>;
+  dyslexicFont: Array<any>;
+  hideImages: Array<any>;
 }
 
 export interface IAccessibilityGuideOptions {
@@ -137,38 +137,31 @@ export interface IAccessibilityMenuLabelsOptions {
   closeTitle: string;
   menuTitle: string;
   increaseText: string;
-  decreaseText: string;
   increaseTextSpacing: string;
-  decreaseTextSpacing: string;
   invertColors: string;
   grayHues: string;
   bigCursor: string;
   readingGuide: string;
   underlineLinks: string;
   textToSpeech: string;
-  speechToText: string;
   disableAnimations: string;
   increaseLineHeight: string;
-  decreaseLineHeight: string;
   hotkeyPrefix: string;
+  hotkeysHelpTitle: string;
   dyslexicFont: string;
   hideImages: string;
 }
 
 export interface IAccessibilityModulesOptions {
   increaseText?: boolean;
-  decreaseText?: boolean;
   increaseTextSpacing?: boolean;
-  decreaseTextSpacing?: boolean;
   increaseLineHeight?: boolean;
-  decreaseLineHeight?: boolean;
   invertColors?: boolean;
   grayHues?: boolean;
   bigCursor?: boolean;
   readingGuide?: boolean;
   underlineLinks?: boolean;
   textToSpeech?: boolean;
-  speechToText?: boolean;
   disableAnimations?: boolean;
   dyslexicFont?: boolean;
   hideImages?: boolean;
@@ -180,18 +173,14 @@ export interface IAccessibilityAnimationsOptions {
 
 export enum AccessibilityModulesType {
   increaseText = 1,
-  decreaseText = 2,
   increaseTextSpacing = 3,
-  decreaseTextSpacing = 4,
   increaseLineHeight = 5,
-  decreaseLineHeight = 6,
   invertColors = 7,
   grayHues = 8,
   bigCursor = 9,
   readingGuide = 10,
   underlineLinks = 11,
   textToSpeech = 12,
-  speechToText = 13,
   disableAnimations = 14,
   iframeModals = 15,
   customFunctions = 16,
@@ -214,7 +203,6 @@ export interface IAccessibilityUrlOptions {
 
 export interface IAccessibilityLanguageOptions {
   textToSpeechLang: string;
-  speechToTextLang: string;
 }
 
 export interface ISessionState {
@@ -235,7 +223,6 @@ export interface IStateValues {
   readingGuide?: boolean;
   invertColors?: boolean;
   grayHues?: boolean;
-  speechToText?: boolean;
   disableAnimations?: boolean;
   dyslexicFont?: boolean;
   hideImages?: boolean;
