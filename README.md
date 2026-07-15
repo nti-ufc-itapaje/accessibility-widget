@@ -212,6 +212,14 @@ Consulte o [README do plugin](./wordpress-plugin/ufc-itapaje-accessibility/READM
 
 ---
 
+## Créditos
+
+Este projeto é baseado no pacote open source [`accessibility`](https://github.com/ranbuch/accessibility) ([npm](https://www.npmjs.com/package/accessibility)), criado por Ran Buchnik e licenciado sob MIT. A partir dele, o NTI UFC Itapajé reescreveu e estendeu boa parte do widget: módulos, atalhos de teclado, temas via CSS custom properties, presets de idioma e a integração com WordPress.
+
+---
+
 ## Licença
 
-GPL-3.0 — [NTI UFC Itapajé](https://github.com/nti-ufc-itapaje/accessibility-widget)
+Este projeto é livre e de código aberto, distribuído sob a licença **[GPL-3.0](./LICENSE)** — [NTI UFC Itapajé](https://github.com/nti-ufc-itapaje/accessibility-widget).
+
+O pacote original do qual este projeto deriva, [`accessibility`](https://github.com/ranbuch/accessibility) (Ran Buchnik), é licenciado sob **MIT** — o aviso de copyright original está reproduzido no fim do arquivo [`LICENSE`](./LICENSE).
